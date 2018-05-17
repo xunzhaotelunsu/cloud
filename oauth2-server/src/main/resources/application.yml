@@ -27,3 +27,6 @@ security:
 management:
   security:
     enabled: false
+info:
+  app:
+    name: oauth2

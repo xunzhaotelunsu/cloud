@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by yang on 2018/3/21.
  */
-@FeignClient(value = "account")
+@FeignClient(value = "account-service")
 public interface LoginInterface {
 
     @PostMapping(value = "/login/tryLogin")
