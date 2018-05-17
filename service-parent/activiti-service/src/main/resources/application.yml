@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    bus:
+      trace:
+        enabled: true
+    stream:
+      bindings:
+        springCloudBusInput:
+          group: activiti
+  profiles:
+    active: local
+management:
+  security:
+    enabled: false
+info:
+  app:
+    name: activiti-service

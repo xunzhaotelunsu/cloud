@@ -1,0 +1,19 @@
+server:
+  port: 9005
+spring:
+  application:
+    name: zipkin
+  profiles:
+    active: @activeprofile@
+  sleuth:
+    enabled: false
+zipkin:
+  storage:
+    type: mysql
+
+#zipkin.storage.type=elasticsearch
+#zipkin.storage.elasticsearch.hosts=10.20.1.11:9200,10.20.1.12:9200
+#zipkin.storage.elasticsearch.cluster=elasticsearch
+#zipkin.storage.elasticsearch.index=zipkin
+#zipkin.storage.elasticsearch.index-shards=5
+#zipkin.storage.elasticsearch.index-replicas=1

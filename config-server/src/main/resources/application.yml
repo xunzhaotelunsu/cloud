@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://D:/work/config-repo
+  rabbitmq:
+    host: 10.25.32.37
+    port: 5672
+    username: admin
+    password: admin1234qwer
+server:
+  port: 9009
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+  instance:
+      preferIpAddress: true
+      instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+management:
+  security:
+    enabled: false

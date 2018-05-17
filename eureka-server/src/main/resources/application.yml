@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: @activeprofile@
+
+server:
+  port: 9000
+
+#eureka server
+eureka:
+  environment: @activeprofile@
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false  #单节点eureka
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+management:
+  security:
+    enabled: false

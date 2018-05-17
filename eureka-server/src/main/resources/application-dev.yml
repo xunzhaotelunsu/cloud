@@ -1,0 +1,6 @@
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5 #快速注册
+  server:
+    enable-self-preservation: false #关闭自我保护
+    eviction-interval-timer-in-ms: 5000

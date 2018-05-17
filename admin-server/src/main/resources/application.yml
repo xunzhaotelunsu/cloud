@@ -1,0 +1,15 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: admin
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+  instance:
+      preferIpAddress: true
+      instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+management:
+  security:
+    enabled: false

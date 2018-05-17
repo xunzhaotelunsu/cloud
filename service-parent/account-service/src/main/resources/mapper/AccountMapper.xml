@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baosight.cloud.service.account.persist.mapper.AccountMapper">
+    <resultMap id="accountMap" type="com.baosight.cloud.service.account.persist.entity.Account">
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="encrypted_password" property="encryptedPassword" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAccount" resultMap="accountMap">
+        SELECT
+            user_id,
+            user_name,
+            encrypted_password,
+            mobile,
+            email,
+            create_date,
+            status
+        FROM account
+        WHERE user_id = #{userId}
+    </select>
+    <select id="queryAccountList" parameterType="HashMap" resultType="com.baosight.cloud.service.account.persist.entity.Account">
+        SELECT
+            user_id AS "userId",
+            user_name AS "userName",
+            encrypted_password AS  "encryptedPassword",
+            mobile AS "mobile",
+            email AS "email",
+            create_date AS "createDate",
+            status AS "status"
+        FROM account
+        <where>
+            <if test="userId!= null">
+                AND user_id = #{userId}
+            </if>
+            <if test="userName!= null">
+                AND user_name = #{userName}
+            </if>
+            <if test="mobile!= null">
+                AND mobile = #{mobile}
+            </if>
+            <if test="email!= null">
+                AND email = #{email}
+            </if>
+            <if test="status!= null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+    <insert id="insertAccount" parameterType="com.baosight.cloud.service.account.persist.entity.Account">
+        INSERT INTO account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">
+                user_id,
+            </if>
+            <if test="userName!=null">
+                user_name,
+            </if>
+            <if test="encryptedPassword!=null">
+                encrypted_password,
+            </if>
+            <if test="mobile!=null">
+                mobile,
+            </if>
+            <if test="email!=null">
+                email,
+            </if>
+            <if test="createDate!=null">
+                create_date,
+            </if>
+            <if test="status!=null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName!=null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="encryptedPassword!=null">
+                #{encryptedPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile!=null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email!=null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate!=null">
+                #{createDate,jdbcType=VARCHAR},
+            </if>
+            <if test="status!=null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updatePassword">
+        UPDATE account
+        SET encrypted_password = #{newPassword}
+        WHERE user_id = #{userId}
+    </update>
+</mapper>

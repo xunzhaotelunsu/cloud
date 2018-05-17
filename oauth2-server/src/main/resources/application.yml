@@ -1,0 +1,29 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: oauth2-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+  instance:
+      preferIpAddress: true
+      instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+security:
+  oauth2:
+    client:
+      client-id: testClient
+      client-secret: secret
+      scope: read, write
+      auto-approve-scopes: .*
+    authorization:
+      check-token-access: permitAll()
+    resource:
+      user-info-uri: /user
+management:
+  security:
+    enabled: false

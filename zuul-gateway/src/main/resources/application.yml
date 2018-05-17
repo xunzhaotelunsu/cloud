@@ -1,0 +1,54 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+  instance:
+      preferIpAddress: true
+      instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+spring:
+  application:
+    name: zuul-gateway
+  aop:
+    proxy-target-class:
+server:
+  port: 9004
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+permit:
+  patterns: /uaa/**,/account/register/**
+zuul:
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+  routes:
+    account:
+      path: /account/**
+      serviceId: account-service
+      sensitiveHeaders:
+    oauth2:
+      path: /uaa/**
+      serviceId: oauth2-server
+      sensitiveHeaders:
+  add-proxy-headers: true
+security:
+  oauth2:
+    client:
+      access-token-uri: http://oauth2-server/uaa/oauth/token
+      user-authorization-uri: http://oauth2-server/uaa/oauth/authorize
+      client-id: testClient
+    resource:
+      id: zuul
+      jwt:
+        key-value: -----BEGIN PUBLIC KEY-----
+                   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgVL6XZEq72QDUU9Z8E19
+                   bN1HsC9JxGgx25GTO0Zeqtp1UVC6hazeKwwd9L8ZFKideYdqJ5ojcrKHK6+191Bq
+                   wiyQXGsd2y/DiOsCVCu256U9Uuxe40YT5bEuSUqtI12o/kEVMiInpO72opBXhO07
+                   lTVaZvbR44sQ4YLSE/wlVRZt0zCTjjFX4hhoDu49mPi7pTn4FdHiJvcesUFsAcLZ
+                   /zOWGbXKBwCLU6/o23bXR6ZqP09wqijKPnhjWay1So43UzkzZOeudG9ZGd2kEfQg
+                   VkaDiOPxWiezgnpVebGqJmKC1xhzpVdnQy2hY5A5aaT5/yOlaJmfF67kHVEwPQAJ
+                   PQIDAQAB
+                   -----END PUBLIC KEY-----
+management:
+  security:
+    enabled: false

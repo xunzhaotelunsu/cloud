@@ -1,0 +1,14 @@
+spring:
+  sleuth:
+    enabled: false
+  rabbitmq:
+    host: 10.25.32.37
+    port: 5672
+    username: admin
+    password: admin1234qwer
+    virtual-host: /
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.25.32.36:3306/zipkin?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: root

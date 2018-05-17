@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baosight.cloud.service.account.persist.mapper.LoginMapper">
+    <resultMap id="loginMap" type="com.baosight.cloud.service.account.persist.entity.Login">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getLoginByLoginName" resultMap="loginMap">
+        SELECT
+            user_id,
+            login_name,
+            type
+        FROM login
+        WHERE login_name = #{loginName}
+    </select>
+    <select id="getLoginNameCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM login
+        WHERE login_name = #{loginName}
+    </select>
+    <select id="getLoginByUserIdAndType" resultType="com.baosight.cloud.service.account.persist.entity.Login">
+        SELECT
+            user_id,
+            login_name,
+            type
+        FROM login
+        WHERE user_id = #{userId} AND type = #{type}
+    </select>
+    <insert id="insertLogin">
+        INSERT INTO login
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">
+                user_id,
+            </if>
+            <if test="loginName!=null">
+                login_name,
+            </if>
+            <if test="type!=null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName!=null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="type!=null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateLogin">
+        UPDATE login
+        SET login_name = #{loginName}
+        WHERE user_id = #{userId} AND type = #{type}
+    </update>
+</mapper>

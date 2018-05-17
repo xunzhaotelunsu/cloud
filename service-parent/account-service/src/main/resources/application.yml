@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    bus:
+      trace:
+        enabled: true
+    stream:
+      bindings:
+        springCloudBusInput:
+          group: account-service
+  profiles:
+    active: @activeprofile@
+management:
+  security:
+    enabled: false
+info:
+  app:
+    name: account
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
