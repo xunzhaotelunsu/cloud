@@ -32,8 +32,9 @@
         </dependency>
         <!-- mysql end-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>com.baosight</groupId>
+            <artifactId>redis-tools</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

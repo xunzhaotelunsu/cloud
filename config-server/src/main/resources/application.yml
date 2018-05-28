@@ -11,6 +11,8 @@ spring:
     port: 5672
     username: admin
     password: admin1234qwer
+    publisher-returns: true
+    publisher-confirms: true
 server:
   port: 9009
 eureka:

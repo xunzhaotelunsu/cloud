@@ -9,6 +9,7 @@ import com.baosight.cloud.service.account.persist.entity.Account;
 import com.baosight.cloud.service.account.persist.entity.Login;
 import com.baosight.cloud.service.account.util.SHA256Util;
 import com.baosight.cloud.service.account.util.SMSVerifyUtil;
+import com.baosight.cloud.tools.redis.StringRedisOperation;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class RegisterController {
     LoginModel loginModel;
 
     @Autowired
-    StringRedisTemplate stringRedisTemplate;
+    StringRedisOperation stringRedisOperation;
 
     @Autowired
     SMSVerifyUtil smsVerifyUtil;
@@ -107,7 +108,7 @@ public class RegisterController {
     }
 
     private String generateUserId(){
-        long result = stringRedisTemplate.opsForValue().increment(USER_ID_KEY, 1L);
+        long result = stringRedisOperation.incr(USER_ID_KEY);
         return String.valueOf(result);
     }
 }
