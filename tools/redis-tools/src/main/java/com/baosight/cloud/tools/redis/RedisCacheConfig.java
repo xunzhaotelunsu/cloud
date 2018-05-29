@@ -1,6 +1,7 @@
 package com.baosight.cloud.tools.redis;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,7 +17,7 @@ import org.springframework.util.ObjectUtils;
  */
 @Configuration
 @EnableCaching
-@ConditionalOnBean(StringRedisTemplate.class)
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 public class RedisCacheConfig extends CachingConfigurerSupport {
 
     @Bean
