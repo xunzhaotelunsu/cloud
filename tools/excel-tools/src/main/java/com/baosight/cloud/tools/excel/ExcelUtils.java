@@ -20,6 +20,18 @@ import java.util.List;
 public class ExcelUtils {
 
     /**
+     * 读取Excel文件做处理
+     * @param excelInputStream
+     * @param fileType
+     * @return
+     * @throws IOException
+     */
+    public static Workbook readAsWorkbook(InputStream excelInputStream, ExcelReader.ExcelFileType fileType) throws IOException{
+        ExcelReader reader = new ExcelReader(excelInputStream, fileType);
+        return reader.getWorkBook();
+    }
+
+    /**
      * 根据sheet名导入Excel指定sheet到List
      *
      * @param excelInputStream
