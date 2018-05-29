@@ -13,7 +13,11 @@ import com.baosight.cloud.tools.redis.StringRedisOperation;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +30,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping(value = "/register")
+@EnableBinding(Register.class)
 public class RegisterController {
 
     @Autowired
@@ -39,6 +44,10 @@ public class RegisterController {
 
     @Autowired
     SMSVerifyUtil smsVerifyUtil;
+
+    @Autowired
+    @Qualifier("register")
+    MessageChannel register;
 
     private static final String USER_ID_KEY = "user_id";
 
@@ -91,6 +100,8 @@ public class RegisterController {
         loginModel.addLogin(login);
         registerResult.setRegistered(true);
         registerResult.setUserId(userId);
+        //发送到消息队列
+        register.send(MessageBuilder.withPayload(account.getUserId()).build());
         return registerResult;
     }
 
@@ -111,4 +122,13 @@ public class RegisterController {
         long result = stringRedisOperation.incr(USER_ID_KEY);
         return String.valueOf(result);
     }
+
+}
+
+interface Register {
+
+    String output = "register";
+
+    @Output(output)
+    MessageChannel registered();
 }

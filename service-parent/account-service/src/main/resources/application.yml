@@ -5,6 +5,9 @@ spring:
         enabled: true
     stream:
       bindings:
+        register:
+          destination: register_account
+          contentType: text/plain
         springCloudBusInput:
           group: account-service
   profiles:

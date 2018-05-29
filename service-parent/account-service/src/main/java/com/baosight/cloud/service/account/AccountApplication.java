@@ -1,11 +1,9 @@
 package com.baosight.cloud.service.account;
 
-import com.baosight.cloud.tools.redis.RedisCacheConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -15,7 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableEurekaClient
 @MapperScan(basePackages = "com.baosight.cloud.service.account.persist.mapper")
 @EnableTransactionManagement
-@Import({RedisCacheConfig.class})
 public class AccountApplication {
 
     public static void main(String[] args){
