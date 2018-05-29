@@ -43,7 +43,8 @@ public class RedissonCacheConfig {
                     .addNodeAddress(nodes)
                     .setScanInterval(20000)
                     .setMasterConnectionPoolSize(10000)
-                    .setSlaveConnectionPoolSize(10000);
+                    .setSlaveConnectionPoolSize(10000)
+                    .setPassword(redisProperties.getPassword());
         }else{
             //singleServer模式
             config.useSingleServer()
