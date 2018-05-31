@@ -7,6 +7,7 @@
 * tools:工具
     * excel-tools:excel基本导入导出
     * fs-tools:文件基本上传下载，支持fastdfs与本地
+    * job-tools:集成xxl-job
     * redis-tools:redis基本操作
     * skywalking-tools:skywalking logback配置
 * zuul-gateway:服务网关

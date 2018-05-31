@@ -19,6 +19,7 @@
         <module>tools/redis-tools</module>
         <module>tools/excel-tools</module>
         <module>tools/fs-tools</module>
+        <module>tools/job-tools</module>
     </modules>
     <packaging>pom</packaging>
 
